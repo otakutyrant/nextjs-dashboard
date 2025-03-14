@@ -11,4 +11,17 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {
+    rules: {
+      // nextjs does not need import react explicitly
+      // see: https://stackoverflow.com/questions/42640636/react-must-be-in-scope-when-using-jsx-react-react-in-jsx-scope
+      'react/react-in-jsx-scope': 'off',
+    }
+  },
+  {
+    "extends": [
+      "next/core-web-vitals",
+      "next/typescript",
+    ],
+  }
 ];
