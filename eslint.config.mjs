@@ -2,7 +2,11 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-
+const { FlatCompat } = require('@eslint/eslintrc');
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: typeScriptEsLintPlugin.configs['recommended'],
+});
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -11,6 +15,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  ...compat.confg({ extends: ["next/core-web-vitals", "next/typescript"] }),
   {
     rules: {
       // nextjs does not need import react explicitly
@@ -18,10 +23,4 @@ export default [
       'react/react-in-jsx-scope': 'off',
     }
   },
-  {
-    "extends": [
-      "next/core-web-vitals",
-      "next/typescript",
-    ],
-  }
 ];
